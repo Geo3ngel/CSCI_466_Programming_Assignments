@@ -1,5 +1,5 @@
 #This file will serve as a means of testing communication over http
-# Created by: George Engel, , &
+# Created by: George Engel, Beau Anderson , &
 # 9/12/2018
 
 import BaseHTTPServer, SimpleHTTPServer
