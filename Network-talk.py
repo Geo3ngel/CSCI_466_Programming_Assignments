@@ -2,6 +2,18 @@
 # Created by: George Engel, Beau Anderson , &
 # 9/12/2018
 
+import socket
+import sys
+
+port = None
+fileName = None
+
+def initDo():
+    port = sys.argv[1:]
+    fileName = sys.argv[2:]
+
+
+"""
 import BaseHTTPServer, SimpleHTTPServer
 import ssl
 
@@ -10,3 +22,4 @@ httpd.socket = ssl.wrap_socket (httpd.socket, certfile='path/to/localhost.pem', 
 httpd.serve_forever()
 
 print("Hello")
+"""
