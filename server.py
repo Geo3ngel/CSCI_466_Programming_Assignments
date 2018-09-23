@@ -135,31 +135,31 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             <form action="server.py" method="testPrint">
             <div class="btn-group"
                 style="width:100%">
-                    <button name="pos" value='0,4' style=width:50%">0,4</button>
-                    <button name="pos" value='1,4' style=width:50%">1,4</button>
-                    <button name="pos" value='2,4' style=width:50%">2,4</button>
-                    <button name="pos" value='3,4' style=width:50%">3,4</button>
-                    <button name="pos" value='4,4' style=width:50%">4,4</button>
-                    <button name="pos" value='5,4' style=width:50%">5,4</button>
-                    <button name="pos" value='6,4' style=width:50%">6,4</button>
-                    <button name="pos" value='7,4' style=width:50%">7,4</button>
-                    <button name="pos" value='8,4' style=width:50%">8,4</button>
-                    <button name="pos" value='9/,4' style=width:50%">9,4</button>
+                    <button name="pos" value='X0 Y4' style=width:50%">0,4</button>
+                    <button name="pos" value='X1 Y4' style=width:50%">1,4</button>
+                    <button name="pos" value='X2 Y4' style=width:50%">2,4</button>
+                    <button name="pos" value='X3 Y4' style=width:50%">3,4</button>
+                    <button name="pos" value='X4 Y4' style=width:50%">4,4</button>
+                    <button name="pos" value='X5 Y4' style=width:50%">5,4</button>
+                    <button name="pos" value='X6 Y4' style=width:50%">6,4</button>
+                    <button name="pos" value='X7 Y4' style=width:50%">7,4</button>
+                    <button name="pos" value='X8 Y4' style=width:50%">8,4</button>
+                    <button name="pos" value='X9 Y4' style=width:50%">9,4</button>
                 </div>
             </form>
             <form action="server.py" method="testPrint">
             <div class="btn-group"
                 style="width:100%">
-                    <button name="pos" value='0' style=width:50%">0,0</button>
-                    <button name="pos" value='1' style=width:50%">1,0</button>
-                    <button name="pos" value='2' style=width:50%">2,0</button>
-                    <button name="pos" value='3' style=width:50%">3,0</button>
-                    <button name="pos" value='4' style=width:50%">4,0</button>
-                    <button name="pos" value='5' style=width:50%">5,0</button>
-                    <button name="pos" value='6' style=width:50%">6,0</button>
-                    <button name="pos" value='7' style=width:50%">7,0</button>
-                    <button name="pos" value='8' style=width:50%">8,0</button>
-                    <button name="pos" value='9' style=width:50%">9,0</button>
+                    <button name="pos" value='0' style=width:50%">0,5</button>
+                    <button name="pos" value='1' style=width:50%">1,5</button>
+                    <button name="pos" value='2' style=width:50%">2,5</button>
+                    <button name="pos" value='3' style=width:50%">3,5</button>
+                    <button name="pos" value='4' style=width:50%">4,5</button>
+                    <button name="pos" value='5' style=width:50%">5,5</button>
+                    <button name="pos" value='6' style=width:50%">6,5</button>
+                    <button name="pos" value='7' style=width:50%">7,5</button>
+                    <button name="pos" value='8' style=width:50%">8,5</button>
+                    <button name="pos" value='9' style=width:50%">9,5</button>
                 </div>
             </form>
         <form action="server.py" method="testPrint">
