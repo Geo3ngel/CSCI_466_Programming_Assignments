@@ -6,6 +6,7 @@ Edits by Beau Anderson, Anna Watson, and George Engel
 
 # --- Import needed data libraries ---
 import csv
+import time
 
 BattleshipHit = 4
 SubmarineHit = 3
@@ -46,7 +47,7 @@ def checkHit(shot, map):
     global CarrierHit
     global CruiserHit
 
-    if map[shot[0]][shot[1]] == "O":
+    if map[shot[0]][shot[1]] == "0":
         return ["X", "Miss!"]
     elif map[shot[0]][shot[1]] == "B":
         BattleshipHit = BattleshipHit - 1
@@ -78,6 +79,8 @@ def checkHit(shot, map):
             return ["R", "You sunk the CRUISER!"]
         else:
             return ["H", "HIT!"]
+    else:
+        return ["Q", "Try again"]
 
 # --- Function definition for updateMap ---
 # Takes in the current map and the last shot results and returns an updated map.
@@ -87,7 +90,7 @@ def updateMap(lastShotCell, lastShotResult, map):
 
 # --- Function definition for checkShipStatus ---
 # Will check the ship layout to check which ships have been sunk.
-def checkShipStatus(shipList, shipMap):
+def checkShipStatus(shipList, shipMap) -> object:
     shipStatus = []
     ship = len(shipList)
     for index in range(ship):
@@ -127,7 +130,7 @@ print("Welcome to Battleships Admiral!\n"
 while playing:
     # --- Initializing the ship locations ---
     fileName = "own_board.txt"           # file where the ship layout is kept
-    accessMode = "r"                    # access mode r to read to the file
+    accessMode = "r"                    # access mode w to write to the file
     shipMap = []
 
 
@@ -143,8 +146,7 @@ while playing:
     while True:
         missileCount = 100
         break
-    else:
-        print("Please enter a valid difficulty setting.")
+
 
     # --- Variables to be set before each round ---
     currentMap = generateStartMap(gridSize)
@@ -157,7 +159,6 @@ while playing:
         print("  " + " ".join(validColumns))
         for counter in range(gridSize):
             print(str(counter) + " " + " ".join(currentMap[counter]))
-
         print("---------------------------\n")
          #     "MISSILES REMAINING: " + str(missileCount))
 
@@ -216,7 +217,9 @@ while playing:
             playing = False
             break
         else:
-            print("Unknown inout, please enter Y or N")
+            print("Unknown input, please enter Y or N")
+            time.sleep(10)
+
 
     # ----------- End of the Game. -----------
 
