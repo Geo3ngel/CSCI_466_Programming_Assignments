@@ -50,31 +50,31 @@ def checkHit(shot, map):
         return ["X", "Miss!"]
     elif map[shot[0]][shot[1]] == "B":
         BattleshipHit = BattleshipHit - 1
-        if BattleshipHit == 0
+        if BattleshipHit == 0:
             return ["B", "You sunk the BATTLESHIP!"]
         else:
             return ["H", "HIT!"]
     elif map[shot[0]][shot[1]] == "S":
         SubmarineHit -= 1
-        if SubmarineHit == 0
+        if SubmarineHit == 0:
             return ["S", "You sunk the SUBMARINE!"]
         else:
             return ["H", "HIT!"]
     elif map[shot[0]][shot[1]] == "D":
         DestroyerHit -= 1
-        if DestroyerHit == 0
+        if DestroyerHit == 0:
             return ["D", "You sunk the Destroyer!"]
         else:
             return ["H", "HIT!"]
     elif map[shot[0]][shot[1]] == "C":
         CarrierHit -= 1
-        if CarrierHit == 0
+        if CarrierHit == 0:
             return ["C", "You sunk the CARRIER!"]
         else:
             return ["H", "HIT!"]
     elif map[shot[0]][shot[1]] == "R":
         CruiserHit -= 1
-        if CruiserHit == 0
+        if CruiserHit == 0:
             return ["R", "You sunk the CRUISER!"]
         else:
             return ["H", "HIT!"]
@@ -143,8 +143,8 @@ while playing:
     while True:
         missileCount = 100
         break
-        else:
-            print("Please enter a valid difficulty setting.")
+    else:
+        print("Please enter a valid difficulty setting.")
 
     # --- Variables to be set before each round ---
     currentMap = generateStartMap(gridSize)
@@ -158,7 +158,7 @@ while playing:
         for counter in range(gridSize):
             print(str(counter) + " " + " ".join(currentMap[counter]))
 
-        print("---------------------------\n"
+        print("---------------------------\n")
          #     "MISSILES REMAINING: " + str(missileCount))
 
         # --- Get location input from the user for their shot ---

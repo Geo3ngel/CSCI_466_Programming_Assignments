@@ -10,6 +10,7 @@ from urllib.parse import urlparse
 
 from urllib.request import urlopen
 from urllib.parse import urlparse
+import re
 
 global status
 global html
@@ -91,7 +92,7 @@ function myFunction(){
         </body>
         
         
-        <form action="server.py" method="post">
+        <form action="server.py" method="get">
             <div class="btn-group"
                 style="width:100%">
                     
@@ -122,7 +123,7 @@ function myFunction(){
                     <button name="pos" value='X9 Y1' style=width:50%">9,1</button>
                 </div>
             </form>
-        <form action="server.py" method="post">
+        <form action="server.py" method="get">
             <div class="btn-group"
                 style="width:100%">
                     <button name="pos" value='X0 Y2' style=width:50%">0,2</button>
@@ -137,7 +138,7 @@ function myFunction(){
                     <button name="pos" value='X9 Y2' style=width:50%">9,2</button>
                 </div>
             </form>
-        <form action="server.py" method="post">
+        <form action="server.py" method="get">
             <div class="btn-group"
                 style="width:100%">
                     <button name="pos" value='X0 Y3' style=width:50%">0,3</button>
@@ -152,7 +153,7 @@ function myFunction(){
                     <button name="pos" value='X9 Y3' style=width:50%">9,3</button>
                 </div>
             </form>
-            <form action="server.py" method="post">
+            <form action="server.py" method="get">
             <div class="btn-group"
                 style="width:100%">
                     <button name="pos" value='X0 Y4' style=width:50%">0,4</button>
@@ -167,7 +168,7 @@ function myFunction(){
                     <button name="pos" value='X9 Y4' style=width:50%">9,4</button>
                 </div>
             </form>
-            <form action="server.py" method="post">
+            <form action="server.py" method="get">
             <div class="btn-group"
                 style="width:100%">
                     <button name="pos" value='X0 Y5' style=width:50%">0,5</button>
@@ -182,7 +183,7 @@ function myFunction(){
                     <button name="pos" value='X9 Y5' style=width:50%">9,5</button>
                 </div>
             </form>
-        <form action="server.py" method="post">
+        <form action="server.py" method="get">
             <div class="btn-group"
                 style="width:100%">
                     <button name="pos" value='X0 Y6' style=width:50%">0,6</button>
@@ -197,7 +198,7 @@ function myFunction(){
                     <button name="pos" value='X9 Y6' style=width:50%">9,6</button>
                 </div>
             </form>
-        <form action="server.py" method="post">
+        <form action="server.py" method="get">
             <div class="btn-group"
                 style="width:100%">
                     <button name="pos" value='X0 Y7' style=width:50%">0,7</button>
@@ -212,7 +213,7 @@ function myFunction(){
                     <button name="pos" value='X9 Y7' style=width:50%">9,7</button>
                 </div>
             </form>
-        <form action="server.py" method="post">
+        <form action="server.py" method="get">
             <div class="btn-group"
                 style="width:100%">
                     <button name="pos" value='X0 Y8' style=width:50%">0,8</button>
@@ -227,7 +228,7 @@ function myFunction(){
                     <button name="pos" value='X9 Y8' style=width:50%">9,8</button>
                 </div>
             </form>
-            <form action="server.py" method="post">
+            <form action="server.py" method="get">
             <div class="btn-group"
                 style="width:100%">
                     <button name="pos" value='X0 Y9' style=width:50%">0,9</button>
@@ -245,15 +246,19 @@ function myFunction(){
             
         </html>"""
 
-        #TODO: Use urllib to get current path & parse it into shots fired, process, and respond
+        #Breaks up the url query into coordinates if applicable
+        #TODO: In the if statement, make a call to the other server on local host to check for these coords
+        #into shots fired, process, and respond
+        pattern = re.compile('X(\d)\+Y(\d)')
+
+        p = pattern.search(self.path)
+        if(p!= None):
+            num1 = int(p.group(1))
+            num2 = int(p.group(2))
+            print(num1," ",num2)
+
 
         self.wfile.write(html)
-        print(self.path)
-
-    def testPrint(self):
-        print("button called python code")
-
-
 
     #Have board modification logic here?
     #Add each row one at a time and manipulate in html?
