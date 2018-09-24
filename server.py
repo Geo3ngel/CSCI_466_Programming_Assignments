@@ -11,7 +11,8 @@ from urllib.parse import urlparse
 from urllib.request import urlopen
 from urllib.parse import urlparse
 import re
-
+import BattleshipGame
+import BattleshipGame
 global status
 global html
 global req
@@ -22,6 +23,10 @@ global url
 status = [0]
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+    import BattleshipGame
+    #replace with file parameter later
+    file = None
+    battleShipGame = BattleshipGame.BattleshipGame(file)
 
     def _set_headers(self):
         self.send_response(200)
@@ -257,6 +262,10 @@ function myFunction(){
             num2 = int(p.group(2))
             if((num1 >= 0 and num1 <= 9)and(num2 >= 0 and num2 <= 9)):
                 print(num1," ",num2)
+                self.battleShipGame.shoot(num1,num2)
+                if(self.battleShipGame.checkWin()):
+                    #TODO: Declare Winner
+                    print("Game Over")
             else:
                 self.send_response(404)
 
