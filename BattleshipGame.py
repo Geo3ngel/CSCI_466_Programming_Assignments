@@ -126,8 +126,8 @@ print("Welcome to Battleships Admiral!\n"
 # ----------- Starting the Game. Code will need to loop until the user quits. -----------
 while playing:
     # --- Initializing the ship locations ---
-    fileName = "ownBoard.txt"           # file where the ship layout is kept
-    accessMode = "w"                    # access mode w to write to the file
+    fileName = "own_board.txt"           # file where the ship layout is kept
+    accessMode = "r"                    # access mode r to read to the file
     shipMap = []
 
 

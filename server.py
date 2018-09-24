@@ -249,14 +249,16 @@ function myFunction(){
         #Breaks up the url query into coordinates if applicable
         #TODO: In the if statement, make a call to the other server on local host to check for these coords
         #into shots fired, process, and respond
-        pattern = re.compile('X(\d)\+Y(\d)')
+        pattern = re.compile('X(\d*)\+Y(\d*)')
 
         p = pattern.search(self.path)
         if(p!= None):
             num1 = int(p.group(1))
             num2 = int(p.group(2))
-            print(num1," ",num2)
-
+            if((num1 >= 0 and num1 <= 9)and(num2 >= 0 and num2 <= 9)):
+                print(num1," ",num2)
+            else:
+                self.send_response(404)
 
         self.wfile.write(html)
 
