@@ -52,8 +52,21 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
         global html
 
+        filecontentA = ""
+        filenameA = "own_board.txt"
+        fileA = open(filenameA, "r")
+        for line in fileA:
+            filecontentA += "<p>"+line+"</p>"
+        fileA.close()
+
+        filecontentB = ""
+        filenameB = "opponent_board.txt"
+        fileB = open(filenameB, "r")
+        for line in fileB:
+            filecontentB += "<p>" + line + "</p>"
+        fileB.close()
         #the form action with the POST method makes the page refresh (calls python POST method)
-        html = b"""<html>
+        html = bytes("""<html>
         <style>
 .btn-group button {
     background-color: #4CAF50; /* Green background */
@@ -96,10 +109,19 @@ function myFunction(){
         <p> <font size="20">  <b>Battle Ship</b> </font>  </p>
         </body>
         
-        
+        <form action="server.py" method="">
+            <div class="btn-group"
+                style="width:100%">
+                    """ + filecontentA + "\n\n"+filecontentB+"""
+                    
+                </div>
+            </form>
+
+    
         <form action="server.py" method="get">
             <div class="btn-group"
                 style="width:100%">
+            
                     
                     <button name="pos" value='X0 Y0' onclick="document.body.style.backgroundColor = 'blue';" style=width:50%">0,0</button>
                     <button name="pos" value='X1 Y0' style=width:50%">1,0</button>
@@ -249,7 +271,7 @@ function myFunction(){
                 </div>
             </form>
             
-        </html>"""
+        </html>""",'utf-8')
 
         #Breaks up the url query into coordinates if applicable
         #TODO: In the if statement, make a call to the other server on local host to check for these coords
