@@ -2,10 +2,10 @@
 # Created by: George Engel, Beau Anderson , &
 # 9/12/2018
 
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import HTTPServer, BaseHTTPRequestHandler,ThreadingHTTPServer
 from io import BytesIO
 import cgi
-import urllib
+import urllib.request
 from urllib.parse import urlparse
 
 from urllib.request import urlopen
@@ -13,21 +13,24 @@ from urllib.parse import urlparse
 import re
 import BattleshipGame
 import BattleshipGame
+import socket
+import sys
 global status
 global html
 global req
 global url
-
+global file
 
 
 status = [0]
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+
+
     import BattleshipGame
     #replace with file parameter later
-    file = None
-    battleShipGame = BattleshipGame.BattleshipGame(file)
-
+    global file
+    battleShipGame = BattleshipGame.BattleshipGame(sys.argv[2], sys.argv[3])
     def _set_headers(self):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
@@ -53,14 +56,14 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         global html
 
         filecontentA = ""
-        filenameA = "own_board.txt"
+        filenameA = sys.argv[2]
         fileA = open(filenameA, "r")
         for line in fileA:
             filecontentA += "<p>"+line+"</p>"
         fileA.close()
 
         filecontentB = ""
-        filenameB = "opponent_board.txt"
+        filenameB = sys.argv[3]
         fileB = open(filenameB, "r")
         for line in fileB:
             filecontentB += "<p>" + line + "</p>"
@@ -112,7 +115,7 @@ function myFunction(){
         <form action="server.py" method="">
             <div class="btn-group"
                 style="width:100%">
-                    """ + filecontentA + "\n\n"+filecontentB+"""
+                    """ + filecontentA + "\n===================================================\n"+filecontentB+"""
                     
                 </div>
             </form>
@@ -273,7 +276,6 @@ function myFunction(){
             
         </html>""",'utf-8')
 
-        #Breaks up the url query into coordinates if applicable
         #TODO: In the if statement, make a call to the other server on local host to check for these coords
         #into shots fired, process, and respond
         pattern = re.compile('X(\d*)\+Y(\d*)')
@@ -292,6 +294,9 @@ function myFunction(){
                 self.send_response(404)
 
         self.wfile.write(html)
+        #127:0.0.1:8080
+        #f = urllib.request.urlopen('http://www.python.org/')
+        #print(f.read(100).decode('utf-8'))
 
     #Have board modification logic here?
     #Add each row one at a time and manipulate in html?
@@ -325,7 +330,16 @@ function myFunction(){
             self.end_headers()
             self.wfile.write(self.html)
 
-# Sets up the server
 
-httpd = HTTPServer(('localhost', 8000), SimpleHTTPRequestHandler)
+#def main(port, fileName):
+global file
+file = sys.argv[2]
+httpd = ThreadingHTTPServer(('localhost', int(sys.argv[1])), SimpleHTTPRequestHandler)
+#httpd = ThreadingHTTPServer(('localhost', 8000), SimpleHTTPRequestHandler)
 httpd.serve_forever()
+
+
+
+
+
+

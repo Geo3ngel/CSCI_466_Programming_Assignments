@@ -13,12 +13,9 @@ class BattleshipGame():
     global currentMap
     global previousShots
     # TODO file in parameters
-    def __init__(self, fileName):
-        #TODO: pass in file name as parameters instead
-
-        fileName = "own_board.txt"  # file where the ship layout is kept
-
+    def __init__(self, fileName, fileName2):
         self.fileName = fileName
+        self.fileName2 = fileName2
 
         accessMode = "r"  # access mode w to write to the file
         shipMap = []
@@ -57,12 +54,31 @@ class BattleshipGame():
 
         return startingMap
 
+    def stringTo2D(self, string):
+        temp = []
+        twoD = []
+        charList = string.split("\n")
+        charList = charList[:10]
+        for var in charList:
+            temp = (var.split(","))
+            temp = temp[:10]
+            twoD.append(temp)
+        return twoD
+
+
     def updateOwnBoard(self,result, x,y):
         x = int(x)
         y = int(y)
         tempString = ""
-        with open(self.fileName,"r") as f:
-            tempString = f.read()
+        if(self.fileName=="Aown_board.txt"):
+            with open("Bown_board.txt", "r") as f:
+                tempString = f.read()
+        else:
+            with open("Aown_board.txt", "r") as f:
+                tempString = f.read()
+
+        #with open(self.fileName,"r") as f:
+        #    tempString = f.read()
         f.close()
         temp = []
         twoD = []
@@ -81,16 +97,18 @@ class BattleshipGame():
         resultant = ""
 
         for var1 in twoD:
-            print(var1)
             for var2 in var1:
-                print(var2)
                 resultant+=(var2+",")
             resultant+="\n"
-        #print(resultant)
 
-        with open(self.fileName,"w") as f:
-            f.write(resultant)
-        f.close()
+        if (self.fileName == "Aown_board.txt"):
+            with open("Bown_board.txt","w") as f:
+                f.write(resultant)
+            f.close()
+        else:
+            with open("Aown_board.txt","w") as f:
+                f.write(resultant)
+            f.close()
 
 
 
@@ -100,7 +118,6 @@ class BattleshipGame():
         previousShots.append(userShot)
         self.shotCoordinateList = self.shotToNumbers(userShot, self.validColumns)
 
-
         # --- Check the shot vs. shipMap to verify a hit or miss ---
         self.shotResult = self.checkHit(self.shotCoordinateList, self.shipMap)
         print(self.shotResult[1])
@@ -108,6 +125,7 @@ class BattleshipGame():
         # --- Update the  game map to refer to when checking ship status ---
         self.shipMap = self.updateMap(self.shotCoordinateList, "X", self.shipMap)
         #TODO: Change to update opponent's board
+        self.sneakyCheck(x,y)
         self.updateOwnBoard(self.shotResult[0],y,x)
         return (self.shotResult[0])
 
@@ -150,7 +168,7 @@ class BattleshipGame():
         elif map[shot[0]][shot[1]] == "B":
             self.BattleshipHit = self.BattleshipHit - 1
             if self.BattleshipHit == 0:
-                return ["B1]", "You sunk the BATTLESHIP!"]
+                return ["B", "You sunk the BATTLESHIP!"]
             else:
                 return ["H", "HIT!"]
         elif map[shot[0]][shot[1]] == "S":
@@ -200,6 +218,61 @@ class BattleshipGame():
                     shipStatus[index] = True
         return shipStatus
 
+    def sneakyCheck(self, x, y):
+
+        twoD = []
+        if(self.fileName=="Aown_board.txt"):
+            #do look at B
+            tempfileName = "Bown_board.txt"
+            file = open(tempfileName, "r")
+            temp=""
+            for line in file:
+                temp += line
+            twoD = self.stringTo2D(temp)
+        else:
+            #do look at A
+            tempfileName = "Aown_board.txt"
+            file = open(tempfileName, "r")
+            temp =""
+
+            for line in file:
+                temp += line
+            twoD = self.stringTo2D(temp)
+        #Need shot and 2D array to use checkHit()
+
+        shot = [x,y]
+        personalFile = open(self.fileName2,"r")
+        personalText = ""
+
+        for line in personalFile:
+            personalText += line
+        #result
+        #print(twoD)
+        result = self.checkHit(shot,twoD)
+
+        #convert personalText into 2D array
+        #print(personalText)
+        twoDResult = self.stringTo2D(personalText)
+        #print(twoDResult)
+
+        res = result[0]
+        #print(res)
+        twoDResult[y][x] = res
+
+        resultant = ""
+
+        for var1 in twoDResult:
+            for var2 in var1:
+                #print(var2)
+                resultant += (var2 + ",")
+            resultant += "\n"
+
+
+
+        file2 = open(self.fileName2, "w")
+        file2.write(resultant)
+
+        file2.close()
 
     def checkWin(self):
         # - Check the status of the ships to check win condition -
